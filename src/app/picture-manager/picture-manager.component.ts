@@ -57,7 +57,7 @@ export class PictureManagerComponent implements OnInit {
     //render 'count' images to the page
     this.http.get('https://api.nasa.gov/planetary/apod?api_key=nFKHqhHAVxceoivZOecNVilXyp3ygfsBG9vpSKLX' +
      '&count='+count
-     + (this.isFilterValid? ('&start_date=' + this.startString + '&end_date='+this.endString):'')
+     + (this.isFilterValid? ('&start_date=' + this.startString + '&end_date='+this.endString):''))
      .subscribe(
       (images:any)=>{
         //images received
@@ -86,55 +86,95 @@ export class PictureManagerComponent implements OnInit {
   filter(){
     //removes all pictures and regrabs pictures based on filters after validating
 
-    //clear inputs
-      this.yearEnd = ''
-      this.yearStart = ''
-      this.monthEnd = ''
-      this.monthStart = ''
-      this.dayEnd = ''
-      this.dayStart = ''
 
 
     //is input valid?
-    if(
-      (parseInt(this.yearStart) && parseInt(this.yearEnd))&&
-      (parseInt(this.monthStart) && parseInt(this.monthEnd))&&
-      (parseInt(this.dayStart) && parseInt(this.dayEnd))&&
-
-      (parseInt(this.yearEnd) < parseInt(this.yearStart)) &&
-      (parseInt(this.monthEnd) < parseInt(this.monthStart)) &&
-      (parseInt(this.dayEnd) < parseInt(this.dayStart)) &&
-
-      (parseInt(this.yearStart) <= new Date().getFullYear())&&
-      (parseInt(this.monthStart) <= 12 )&&
-      (parseInt(this.dayStart) <= 31)&&
-
-      (parseInt(this.yearStart) >= 1900)&&
-      (parseInt(this.monthStart) >= 0 )&&
-      (parseInt(this.dayStart) >= 0)
-
-    ){
+    if(this.validate()){
       //valid input
       this.pictures = []
       this.isFilterValid = true
 
       //show alert
+      this.alert = true
       setTimeout(()=>{
         this.alert = false
       },3000)
 
-      this.render(6)
+      //format
+      this.cleanDate()
 
       this.startString = `${this.yearStart}-${this.monthStart}-${this.dayStart}`
       this.endString = `${this.yearEnd}-${this.monthEnd}-${this.dayEnd}`
+
+      this.render(6)
     }else{
       //invalid range
+      this.isFilterValid = false
+
+      //show alert
+      this.alert = true
+      setTimeout(()=>{
+        this.alert = false
+      },3000)
+
+
     }
+    console.log(this.yearStart)
 
-
-
-
-
+     //clear inputs
+    //  this.yearEnd = ''
+    //  this.yearStart = ''
+    //  this.monthEnd = ''
+    //  this.monthStart = ''
+    //  this.dayEnd = ''
+    //  this.dayStart = ''
   }
+
+  validate(){
+    //check date inputs for validity
+    if((parseInt(this.yearStart) && parseInt(this.yearEnd))&&
+    (parseInt(this.monthStart) && parseInt(this.monthEnd))&&
+    (parseInt(this.dayStart) && parseInt(this.dayEnd))&&
+
+    (parseInt(this.yearEnd) > parseInt(this.yearStart) ||
+      ((parseInt(this.yearEnd) == parseInt(this.yearStart)) &&
+      (parseInt(this.monthEnd) > parseInt(this.monthStart))||
+
+        ((parseInt(this.monthEnd) == parseInt(this.monthStart) &&
+        (parseInt(this.dayEnd) > parseInt(this.dayStart))))
+      )
+    ) &&
+
+    (parseInt(this.yearStart) <= new Date().getFullYear())&&
+    (parseInt(this.monthStart) <= 12 )&&
+    (parseInt(this.dayStart) <= 31)&&
+
+    (parseInt(this.yearStart) >= 1900)&&
+    (parseInt(this.monthStart) >= 0 )&&
+    (parseInt(this.dayStart) >= 0)
+    ){
+      return true
+    }else{
+      return false
+    }
+  }
+
+  cleanDate(){
+    //adds formating to month and day if needed
+    if (parseInt(this.monthEnd) < 10){
+      this.monthEnd = ('0'+ parseInt(this.monthEnd))
+    }
+    if (parseInt(this.monthStart) < 10){
+      this.monthStart = ('0'+ parseInt(this.monthStart))
+    }
+    if (parseInt(this.dayStart) < 10){
+      this.dayStart = ('0'+ parseInt(this.dayStart))
+    }
+    if (parseInt(this.dayEnd) < 10){
+      this.dayEnd = ('0'+ parseInt(this.dayEnd))
+    }
+  }
+
+
 
 }
