@@ -1,0 +1,13 @@
+<article class = "d-flex flex-column justify-content-center align-items-center "
+style = "background-color: rgb(235, 235, 235);
+         padding: 2vh; margin: 4vh;
+         box-shadow: 0 0 30px rgba(0, 0, 0, 0.473);
+         border-radius: 1%;">
+
+  <img src="{{pictureData.url}}"  style = "width:100%; border-radius: 1%"alt="{{'Image of ' +pictureData.title}}">
+  <h2 style = "padding-top: 2vh; text-align: center;"> {{pictureData.title}}</h2>
+  <p>{{pictureData.date}}</p>
+  <p style = 'text-align: center; color: rgb(53, 74, 102);'>{{pictureData.explanation}}</p>
+
+  <button class = 'btn {{liked? "btn-dark": "btn-outline-dark"}}' (click) = 'toggleLike()'>{{ liked? 'Unlike':'Like'}}</button>
+</article>
