@@ -8,11 +8,12 @@ import { LikedPicsService } from '../likedPics.service';
   styleUrls: ['./my-liked-pics.component.css']
 })
 export class MyLikedPicsComponent implements OnInit {
+  //is a photo
 
    //holds picture data
-   @Input() public pictures:any = []
+   @Input() public pictures:any = [];
 
-   public loading = false
+   public loading = false;
 
    constructor(private likedPics: LikedPicsService) {}
 

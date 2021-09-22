@@ -8,15 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./picture-manager.component.css']
 })
 export class PictureManagerComponent implements OnInit {
+  //manages all liked and unliked photos
 
   //holds picture data
-  public pictures:any = []
+  public pictures:any = [];
 
   //helper variable for controlling picture rendering on end of page
-  private delay = false
+  private delay = false;
 
   //var that controls loading indicator
-  public loading:boolean = false
+  public loading:boolean = false;
 
 
   constructor(private http: HttpClient) { }
@@ -26,20 +27,20 @@ export class PictureManagerComponent implements OnInit {
   ngOnInit(): void {
 
     //load initial images
-    this.render(6)
+    this.render(6);
 
     //for loading more pictures as you scroll
     document.addEventListener('scroll',() => {
 
       if( this.delay == false){
         //Load more pictures if enough time has elapsed and user scrolls
-          this.render(4)
-          this.loading = true
-          this.delay = true
+          this.render(4);
+          this.loading = true;
+          this.delay = true;
 
           setTimeout(() =>{
-              this.delay = false
-          }, 500)
+              this.delay = false;
+          }, 500);
 
       }
     })
@@ -57,21 +58,21 @@ export class PictureManagerComponent implements OnInit {
         for (let i = 0; i < images.length ; i++){
           if ( images[i].media_type == 'video'){
 
-            images.splice(i,1)
+            images.splice(i,1);
           }
         }
 
-        this.pictures = this.pictures.concat(images)
-        this.loading = false
+        this.pictures = this.pictures.concat(images);
+        this.loading = false;
     },()=>{
         //image was not reveceived
-        console.log('API call failed')
+        console.log('API call failed');
     })
   }
 
   toggleLoading(){
     //toggles loading message
-    this.loading = !this.loading
+    this.loading = !this.loading;
   }
 
 

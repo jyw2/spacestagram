@@ -15,47 +15,44 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private likedPicsService:LikedPicsService){}
 
   //holdsliked pics from the service
-  public likedPics:any = []
+  public likedPics:any = [];
 
   //controls page state
-  public isLikedPics:boolean = false
+  public isLikedPics:boolean = false;
 
   //listens for liked post updates
-  private likeChange:Subscription
+  private likeChange:Subscription;
 
   switchState(){
-    this.isLikedPics = ! this.isLikedPics
+    this.isLikedPics = ! this.isLikedPics;
 
     if(this.isLikedPics){
       //switching to liked pics
-    this.updatePics()
+    this.updatePics();
 
     }
 
   }
 
   updatePics(){
-    this.likedPics = []
+    this.likedPics = [];
 
-    let pics = this.likedPicsService.getPics()
+    let pics = this.likedPicsService.getPics();
 
-    console.log(pics)
 
     for(let pic in pics){
-      this.likedPics.push(pics[pic])
+      this.likedPics.push(pics[pic]);
 
-      console.log(this.likedPics)
     }
   }
 
   ngOnInit():void{
     this.likeChange =this.likedPicsService.getSub().subscribe(()=>{
-      this.updatePics()
-      console.log('updated')
+      this.updatePics();
     })
   }
 
   ngOnDestroy():void{
-    this.likeChange.unsubscribe()
+    this.likeChange.unsubscribe();
   }
 }

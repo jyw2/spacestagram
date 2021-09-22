@@ -20,17 +20,18 @@ import { LikedPicsService } from '../likedPics.service';
   ]
 })
 export class PictureComponent implements OnInit {
+  //manages liked photos
 
 
   //button vars
-  @Input() public liked:boolean = false
-  public likeStateC:string = 'hide'
-  public hideHeart:string = 'hide'
-  public hideUnlike:string = 'hide'
-  private buttonState:boolean = true
+  @Input() public liked:boolean = false;
+  public likeStateC:string = 'hide';
+  public hideHeart:string = 'hide';
+  public hideUnlike:string = 'hide';
+  private buttonState:boolean = true;
 
   //data to display
-  @Input() public pictureData: any
+  @Input() public pictureData: any;
   //Object with
       // resource A dictionary describing the image_set or planet that the response illustrates, completely determined by the structured endpoint.
       // concept_tags A boolean reflection of the supplied option. Included in response because of default values.
@@ -53,16 +54,16 @@ export class PictureComponent implements OnInit {
   toggleLike(){
     if(this.buttonState == true){
     //if picture is not in the middle of showing user if they liked or unliked
-      this.buttonState = false
+      this.buttonState = false;
 
       //show user if liking
       if(!this.liked){
-        this.flashLiked()
+        this.flashLiked();
       }else{
-        this.flashUnliked()
+        this.flashUnliked();
       }
 
-      this.liked = !this.liked
+      this.liked = !this.liked;
 
     }
 
@@ -70,16 +71,16 @@ export class PictureComponent implements OnInit {
   }
 
   flashLiked(){
-    this.likeStateC = 'show'
-    this.hideHeart = 'show'
+    this.likeStateC = 'show';
+    this.hideHeart = 'show';
 
     //update liked pics in service
-    this.likedPics.addPic(this.pictureData)
+    this.likedPics.addPic(this.pictureData);
 
     setTimeout(()=>{
-      this.buttonState = true
-      this.likeStateC = 'hide'
-      this.hideHeart = 'hide'
+      this.buttonState = true;
+      this.likeStateC = 'hide';
+      this.hideHeart = 'hide';
     },2000)
 
 
@@ -89,19 +90,19 @@ export class PictureComponent implements OnInit {
 
 
   flashUnliked(){
-    this.likeStateC = 'show'
-    this.hideUnlike = 'show'
+    this.likeStateC = 'show';
+    this.hideUnlike = 'show';
 
 
 
     setTimeout(()=>{
-      this.buttonState = true
-      this.likeStateC = 'hide'
-      this.hideUnlike= 'hide'
+      this.buttonState = true;
+      this.likeStateC = 'hide';
+      this.hideUnlike= 'hide';
 
       //update liked pics in service
     this.likedPics.removePic(this.pictureData.title)
-    },2000)
+    },2000);
 
   }
 }
