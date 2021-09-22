@@ -6,6 +6,7 @@ import { PictureManagerComponent } from './picture-manager/picture-manager.compo
 import { PictureComponent } from './picture/picture.component';
 import { HttpClientModule} from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -14,9 +15,11 @@ import { FormsModule } from '@angular/forms';
     PictureComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

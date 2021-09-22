@@ -1,14 +1,31 @@
+import { style, transition, trigger,  state,animate } from '@angular/animations';
 import { Component, OnInit, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-picture',
   templateUrl: './picture.component.html',
-  styleUrls: ['./picture.component.css']
+  styleUrls: ['./picture.component.css'],
+  animations: [
+    trigger('likeState', [state('hide',style({'opacity':'1'})),
+      state('show',style({'opacity':'0.1'})),
+      transition('show <=> hide', animate('500ms 0ms ease-out'))
+    ]),
+    trigger('heartState', [state('show',style({'opacity':'1'})),
+    state('hide',style({'opacity':'0',transform:'translateY(50px)'})),
+    transition('hide => show', animate('550ms 0ms ease-out')),
+    transition('show=> hide', animate('550ms 0ms ease-in')),
+    ])
+  ]
 })
 export class PictureComponent implements OnInit {
 
 
   public liked:boolean = false
+  public likeStateC:string = 'hide'
+  public hideHeart:string = 'hide'
+  public hideUnlike:string = 'hide'
+  private buttonState:boolean = true
 
   //data to display
   @Input() public pictureData: any
@@ -32,7 +49,47 @@ export class PictureComponent implements OnInit {
   }
 
   toggleLike(){
-    this.liked = !this.liked
+    if(this.buttonState == true){
+    //if picture is not in the middle of showing user if they liked or unliked
+      this.buttonState = false
+
+      //show user if liking
+      if(!this.liked){
+        this.flashLiked()
+      }else{
+        this.flashUnliked()
+      }
+
+      this.liked = !this.liked
+
+    }
+
+
   }
 
+  flashLiked(){
+    this.likeStateC = 'show'
+    this.hideHeart = 'show'
+
+    setTimeout(()=>{
+      this.buttonState = true
+      this.likeStateC = 'hide'
+      this.hideHeart = 'hide'
+    },2000)
+
+  }
+
+
+
+  flashUnliked(){
+    this.likeStateC = 'show'
+    this.hideUnlike = 'show'
+
+    setTimeout(()=>{
+      this.buttonState = true
+      this.likeStateC = 'hide'
+      this.hideUnlike= 'hide'
+    },2000)
+
+  }
 }
