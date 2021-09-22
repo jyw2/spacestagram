@@ -1,1 +1,4 @@
-<p>my-liked-pics works!</p>
+
+<app-picture *ngFor = "let picture of pictures" [pictureData] = 'picture' [liked] = true></app-picture>
+<p style = 'text-align: center; font-size: 2vh; color: aqua;' *ngIf = 'pictures.length == 0'>No liked posts yet, go like some!</p>
+<p style = 'text-align: center; font-size: 2vh; color: aqua;' *ngIf = 'loading'>Loading...</p>

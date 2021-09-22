@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-center" >
       <button class  = 'btn btn-outline-light mt-4 mb-4' (click) = 'switchState()'>{{isLikedPics? 'Go to all pictures': 'Go to liked pictures'}}</button>
     </div>
-
-    <app-picture-manager></app-picture-manager>
+    <app-my-liked-pics *ngIf = 'isLikedPics' [pictures] = 'likedPics'></app-my-liked-pics>
+    <app-picture-manager *ngIf = '!isLikedPics'></app-picture-manager>
   </main>
 </main>

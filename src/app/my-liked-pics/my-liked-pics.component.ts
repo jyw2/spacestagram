@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { LikedPicsService } from '../likedPics.service';
 
 @Component({
   selector: 'app-my-liked-pics',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyLikedPicsComponent implements OnInit {
 
-  constructor() { }
+   //holds picture data
+   @Input() public pictures:any = []
 
-  ngOnInit(): void {
-  }
+   public loading = false
+
+   constructor(private likedPics: LikedPicsService) {}
+
+   ngOnInit(): void {
+
+   }
+
 
 }

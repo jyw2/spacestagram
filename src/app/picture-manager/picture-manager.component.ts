@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { LikedPicsService } from './likedPics.service';
+
 
 @Component({
   selector: 'app-picture-manager',
@@ -19,7 +19,7 @@ export class PictureManagerComponent implements OnInit {
   public loading:boolean = false
 
 
-  constructor(private http: HttpClient, private likedPics: LikedPicsService) { }
+  constructor(private http: HttpClient) { }
 
 
 

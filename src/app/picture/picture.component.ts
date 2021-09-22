@@ -1,5 +1,6 @@
 import { style, transition, trigger,  state,animate } from '@angular/animations';
 import { Component, OnInit, Input } from '@angular/core';
+import { LikedPicsService } from '../likedPics.service';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { Component, OnInit, Input } from '@angular/core';
       state('show',style({'opacity':'0.1'})),
       transition('show <=> hide', animate('500ms 0ms ease-out'))
     ]),
-    trigger('heartState', [state('show',style({'opacity':'1'})),
-    state('hide',style({'opacity':'0',transform:'translateY(50px)'})),
+    trigger('heartState', [state('show',style({'opacity':'1', 'z-index':'0'})),
+    state('hide',style({'opacity':'0',transform:'translateY(50px)', 'z-index':'-1'})),
     transition('hide => show', animate('550ms 0ms ease-out')),
     transition('show=> hide', animate('550ms 0ms ease-in')),
     ])
@@ -21,7 +22,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PictureComponent implements OnInit {
 
 
-  public liked:boolean = false
+  //button vars
+  @Input() public liked:boolean = false
   public likeStateC:string = 'hide'
   public hideHeart:string = 'hide'
   public hideUnlike:string = 'hide'
@@ -43,7 +45,7 @@ export class PictureComponent implements OnInit {
       // copyright The name of the copyright holder.
       // service_version The service version used.
 
-  constructor() { }
+  constructor(private likedPics: LikedPicsService) { }
 
   ngOnInit(): void {
   }
@@ -71,11 +73,16 @@ export class PictureComponent implements OnInit {
     this.likeStateC = 'show'
     this.hideHeart = 'show'
 
+    //update liked pics in service
+    this.likedPics.addPic(this.pictureData)
+
     setTimeout(()=>{
       this.buttonState = true
       this.likeStateC = 'hide'
       this.hideHeart = 'hide'
     },2000)
+
+
 
   }
 
@@ -85,10 +92,15 @@ export class PictureComponent implements OnInit {
     this.likeStateC = 'show'
     this.hideUnlike = 'show'
 
+
+
     setTimeout(()=>{
       this.buttonState = true
       this.likeStateC = 'hide'
       this.hideUnlike= 'hide'
+
+      //update liked pics in service
+    this.likedPics.removePic(this.pictureData.title)
     },2000)
 
   }
