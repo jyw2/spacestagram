@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'spacestagram';
+
+  //controls page state
+  public isLikedPics:boolean = false
+
+  switchState(){
+    this.isLikedPics = ! this.isLikedPics
+
+  }
 }

@@ -2,6 +2,9 @@
   <main class="col col-lg-6 pt-2">
     <h1 style=" text-align: center; font-size: 5vh; color: aliceblue;" >Spacestagram</h1>
     <p style = "text-align: center; color: rgb(181, 188, 194); font-size: 3vh;">Image sharing from the final frontier</p>
+    <div class="d-flex justify-content-center" >
+      <button class  = 'btn btn-outline-light mt-4 mb-4' (click) = 'switchState()'>{{isLikedPics? 'Go to all pictures': 'Go to liked pictures'}}</button>
+    </div>
 
     <app-picture-manager></app-picture-manager>
   </main>

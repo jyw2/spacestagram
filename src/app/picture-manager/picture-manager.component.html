@@ -1,20 +1,3 @@
-<p style="text-align: center; color: rgb(170, 170, 170); padding-top: 2vh;">Date Range</p>
-<section class = 'input-group' style = 'padding-bottom: 1vh;'>
-  <input type = number class = 'form-control' placeholder="yyyy" [(ngModel)] = 'yearStart'>
-  <div class="input-group-text">-</div>
-  <input type = number class = 'form-control' placeholder="mm" [(ngModel)] = 'monthStart'>
-  <div class="input-group-text">-</div>
-  <input type = number class = 'form-control' placeholder="dd" [(ngModel)] = 'dayStart'>
-  <div class="input-group-text">To</div>
-  <input type = number class = 'form-control' placeholder="yyyy" [(ngModel)] = 'yearEnd'>
-  <div class="input-group-text">-</div>
-  <input type = number class = 'form-control' placeholder="mm" [(ngModel)] = 'monthEnd'>
-  <div class="input-group-text">-</div>
-  <input type = number class = 'form-control' placeholder="dd" [(ngModel)] = 'dayEnd'>
-</section>
-<button class = 'btn btn-primary' (click) = 'filter()' style = 'width:100%; text-align:center;  margin-bottom: 5vh;'>Apply Date Range</button>
-<div class="alert {{isFilterValid?'alert-success':'alert-danger'}}" *ngIf= 'alert'>{{isFilterValid? 'Applying date range':'Invalid date range'}}</div>
-
 
 <app-picture *ngFor = "let picture of pictures" [pictureData] = 'picture'></app-picture>
 
